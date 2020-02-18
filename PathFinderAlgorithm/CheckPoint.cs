@@ -1,19 +1,17 @@
-using System;
-
 namespace PathFinderAlgorithm
 {
     public class CheckPoint
     {
-        public double PathLength { get; private set; }
-        public Node PreviousNode { get; private set; }
-        public CheckPointStatus Status { get; private set; }
-
         public CheckPoint()
         {
             Status = CheckPointStatus.Temporary;
             PathLength = double.PositiveInfinity;
             PreviousNode = null;
         }
+
+        public double PathLength { get; private set; }
+        public Node PreviousNode { get; private set; }
+        public CheckPointStatus Status { get; private set; }
 
         public void Update(double pathLength, Node previousNode)
         {

@@ -5,7 +5,7 @@ namespace PathFinderAlgorithm
 {
     public class Dijkstra : IPathFinder
     {
-        public void CheckNode(PrioQueue queue, IEnumerable<Route> routes, IDictionary<Node, CheckPoint> checkPoints)
+        public void CheckNode(Queue queue, IEnumerable<Route> routes, IDictionary<Node, CheckPoint> checkPoints)
         {
             if (queue.Count == 0)
                 return;
@@ -19,19 +19,14 @@ namespace PathFinderAlgorithm
                 var travelledDistance = checkPoints[queue.First.Value].PathLength + route.Distance;
 
                 if (travelledDistance < checkPoints[route.To].PathLength)
-                {
                     checkPoints[route.To].Update(travelledDistance, queue.First.Value);
-                }
 
-                if (!queue.HasNode(route.To))
-                {
-                    queue.AddNodeWithPriority(route.To, checkPoints);
-                }
+                if (!queue.HasNode(route.To)) queue.AddNodeWithPriority(route.To, checkPoints);
             }
-            
+
             checkPoints[queue.First.Value].Confirm();
             queue.RemoveFirst();
-            
+
             CheckNode(queue, routeList, checkPoints);
         }
     }
